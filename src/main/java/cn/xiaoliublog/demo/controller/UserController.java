@@ -1,11 +1,10 @@
 package cn.xiaoliublog.demo.controller;
 
+import cn.xiaoliublog.demo.model.User;
 import cn.xiaoliublog.demo.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.lang.NonNull;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -13,9 +12,9 @@ public class UserController {
     private JWTUtils jwtUtils;
 
     @PostMapping("/login")
-    public String login(String username, String password){
-        if (username.equals("test") && password.equals("test")){
-            return jwtUtils.getToken(username, password);
+    public String login(@NonNull @RequestBody User user){
+        if (user.getUsername().equals("test") && user.getPassword().equals("test")){
+            return jwtUtils.getToken(user.getUsername(), user.getPassword());
         }
         return "";
     }
